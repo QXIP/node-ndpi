@@ -11,8 +11,7 @@
       ],
       'include_dirs': [
 	"<!@(node -p \"require('node-addon-api').include\")",
-	"../nDPI/src/include/",
-	"/usr/local/include/libndpi-1.8.0/libndpi/"
+	"src/include/"
       ],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
