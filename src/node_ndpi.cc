@@ -1,7 +1,7 @@
 #include "node_ndpi.h"
 
 extern "C" {
-#include "ndpi_api.h"
+#include "include/ndpi_api.h"
 }
 
 using namespace Napi;

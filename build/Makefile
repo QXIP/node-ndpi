@@ -318,8 +318,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/usr/src/lmangani/nDPIex/library/build/config.gypi -I/usr/local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/lorenzo/.node-gyp/8.9.3/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/lorenzo/.node-gyp/8.9.3" "-Dnode_gyp_dir=/usr/local/lib/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=node.lib" "-Dmodule_root_dir=/usr/src/lmangani/nDPIex/library" binding.gyp
-Makefile: $(srcdir)/../../../../local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi $(srcdir)/../../../../../home/lorenzo/.node-gyp/8.9.3/include/node/common.gypi $(srcdir)/node_modules/node-addon-api/src/node_api.gyp $(srcdir)/build/config.gypi $(srcdir)/binding.gyp
+cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/usr/src/lmangani/node-ndpi/build/config.gypi -I/usr/local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/lorenzo/.node-gyp/8.9.3/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/lorenzo/.node-gyp/8.9.3" "-Dnode_gyp_dir=/usr/local/lib/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=node.lib" "-Dmodule_root_dir=/usr/src/lmangani/node-ndpi" binding.gyp
+Makefile: $(srcdir)/../../../local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi $(srcdir)/binding.gyp $(srcdir)/node_modules/node-addon-api/src/node_api.gyp $(srcdir)/build/config.gypi $(srcdir)/../../../../home/lorenzo/.node-gyp/8.9.3/include/node/common.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

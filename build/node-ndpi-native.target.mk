@@ -38,9 +38,9 @@ INCS_Debug := \
 	-I/home/lorenzo/.node-gyp/8.9.3/src \
 	-I/home/lorenzo/.node-gyp/8.9.3/deps/uv/include \
 	-I/home/lorenzo/.node-gyp/8.9.3/deps/v8/include \
-	-I/usr/src/lmangani/nDPIex/library/node_modules/node-addon-api \
-	-I$(srcdir)/../nDPI/src/include \
-	-I/usr/local/include/libndpi-1.8.0/libndpi
+	-I/usr/src/lmangani/node-ndpi/node_modules/node-addon-api \
+	-I$(srcdir)/src/include \
+	-I$(srcdir)/../nDPIex/nDPI/src/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=node-ndpi-native' \
@@ -75,9 +75,9 @@ INCS_Release := \
 	-I/home/lorenzo/.node-gyp/8.9.3/src \
 	-I/home/lorenzo/.node-gyp/8.9.3/deps/uv/include \
 	-I/home/lorenzo/.node-gyp/8.9.3/deps/v8/include \
-	-I/usr/src/lmangani/nDPIex/library/node_modules/node-addon-api \
-	-I$(srcdir)/../nDPI/src/include \
-	-I/usr/local/include/libndpi-1.8.0/libndpi
+	-I/usr/src/lmangani/node-ndpi/node_modules/node-addon-api \
+	-I$(srcdir)/src/include \
+	-I$(srcdir)/../nDPIex/nDPI/src/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/node_ndpi.o \
