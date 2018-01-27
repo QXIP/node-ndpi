@@ -1,7 +1,24 @@
 #include "node_ndpi.h"
 
 extern "C" {
+
 #include "include/ndpi_api.h"
+#include <pcap.h>
+
+}
+
+extern "C" {
+
+typedef void (*callback)(int, const u_int8_t *packet);
+static pcap_t *_pcap_handle = NULL;
+
+void init();
+void setDatalinkType(pcap_t *handle);
+void processPacket(const struct pcap_pkthdr *header, const u_char *packet);
+void finish();
+void dumpResults();
+void addProtocolHandler(callback handler);
+
 }
 
 using namespace Napi;
@@ -47,6 +64,15 @@ Napi::Value NodeNdpi::Greet(const Napi::CallbackInfo& info) {
     return Napi::String::New(env, this->_greeterName);
 }
 
+void NdpiInit(const Napi::CallbackInfo& info) {
+  init();
+}
+
+void NdpiDumpResults(const Napi::CallbackInfo& info) {
+  dumpResults();
+}
+
+
 Napi::Function NodeNdpi::GetClass(Napi::Env env) {
     return DefineClass(env, "NodeNdpi", {
         NodeNdpi::InstanceMethod("greet", &NodeNdpi::Greet),
@@ -56,6 +82,10 @@ Napi::Function NodeNdpi::GetClass(Napi::Env env) {
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
     Napi::String name = Napi::String::New(env, "NodeNdpi");
     exports.Set(name, NodeNdpi::GetClass(env));
+    exports.Set(Napi::String::New(env, "init"),
+              Napi::Function::New(env, NdpiInit));
+    exports.Set(Napi::String::New(env, "dumpResults"),
+              Napi::Function::New(env, NdpiDumpResults));
     return exports;
 }
 

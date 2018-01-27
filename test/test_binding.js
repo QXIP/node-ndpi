@@ -5,9 +5,9 @@ assert(NodeNdpi, "The expected module is undefined");
 
 function testBasic()
 {
-    const instance = new NodeNdpi("mr-yeoman");
+    const instance = new NodeNdpi("nDPI");
     assert(instance.greet, "The expected method is not defined");
-    assert.strictEqual(instance.greet("kermit"), "mr-yeoman", "Unexpected value returned");
+    assert.strictEqual(instance.greet("qxip"), "nDPI", "Unexpected value returned");
 }
 
 function testInvalidParams()
