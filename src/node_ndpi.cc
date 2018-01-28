@@ -1,25 +1,5 @@
 #include "node_ndpi.h"
-
-extern "C" {
-
-#include "include/ndpi_api.h"
-#include <pcap.h>
-
-}
-
-extern "C" {
-
-typedef void (*callback)(int, const u_int8_t *packet);
-static pcap_t *_pcap_handle = NULL;
-
-void init();
-void setDatalinkType(pcap_t *handle);
-void processPacket(const struct pcap_pkthdr *header, const u_char *packet);
-void finish();
-void dumpResults();
-void addProtocolHandler(callback handler);
-
-}
+#include "ndpiexlib.h"
 
 using namespace Napi;
 

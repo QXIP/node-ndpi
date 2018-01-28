@@ -5,7 +5,7 @@ Release/obj.target/node-ndpi-native/src/node_ndpi.o: ../src/node_ndpi.cc \
  /home/lorenzo/.node-gyp/8.9.3/include/node/node_api.h \
  /home/lorenzo/.node-gyp/8.9.3/include/node/node_api_types.h \
  /usr/src/lmangani/node-ndpi/node_modules/node-addon-api/napi-inl.h \
- ../src/include/ndpi_api.h ../src/include/ndpi_main.h \
+ ../src/ndpiexlib.h ../src/include/ndpi_api.h ../src/include/ndpi_main.h \
  ../src/include/ndpi_includes.h ../src/include/ndpi_define.h \
  ../src/include/ndpi_protocol_ids.h ../src/include/ndpi_typedefs.h \
  ../../nDPIex/nDPI/src/include/../lib/third_party/include/libcache.h \
@@ -16,6 +16,7 @@ Release/obj.target/node-ndpi-native/src/node_ndpi.o: ../src/node_ndpi.cc \
 /home/lorenzo/.node-gyp/8.9.3/include/node/node_api.h:
 /home/lorenzo/.node-gyp/8.9.3/include/node/node_api_types.h:
 /usr/src/lmangani/node-ndpi/node_modules/node-addon-api/napi-inl.h:
+../src/ndpiexlib.h:
 ../src/include/ndpi_api.h:
 ../src/include/ndpi_main.h:
 ../src/include/ndpi_includes.h:
