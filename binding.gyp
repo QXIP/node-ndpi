@@ -7,7 +7,7 @@
 	'src/ndpiexlib.c'
       ],
       'libraries': [
-      '-lndpi', '-L/usr/local/include/'
+      '-L/usr/local/include/'
       ],
       'include_dirs': [
 	"<!@(node -p \"require('node-addon-api').include\")",

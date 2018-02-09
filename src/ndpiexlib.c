@@ -127,7 +127,7 @@ void addProtocolHandler(callback handler) {
   protocolHandler = handler;
 }
 
-void onProtocol(u_int16_t id, const u_int8_t *packet) {
+void onProtocol(u_int16_t id, const char *packet) {
   if (protocolHandler && id) {
     protocolHandler(id, packet);
   }

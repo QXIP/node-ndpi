@@ -25,7 +25,6 @@
 #define __NDPI_TYPEDEFS_H__
 
 #include "ndpi_define.h"
-#include "../lib/third_party/include/libcache.h"
 
 #define BT_ANNOUNCE
 #define SNAP_EXT
@@ -892,10 +891,7 @@ struct ndpi_detection_module_struct {
   int    bt_ann_len;
 #endif
 #endif
-#ifdef NDPI_PROTOCOL_TINC
-  cache_t tinc_cache;
-#endif
-
+  
   ndpi_proto_defaults_t proto_defaults[NDPI_MAX_SUPPORTED_PROTOCOLS+NDPI_MAX_NUM_CUSTOM_PROTOCOLS];
 
   u_int8_t http_dont_dissect_response:1, dns_dissect_response:1,
