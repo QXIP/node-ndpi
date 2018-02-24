@@ -2,7 +2,7 @@
 
 # node-ndpi
 
-NodeJS Native Binding for nDPI Deep Packet Inspection
+NodeJS Native Binding for [nDPI](https://github.com/ntop/ndpi) Deep Packet Inspection Library
 
 ##### (c) 2018 QXIP BV
 
