@@ -1,7 +1,21 @@
 {
   "name": "node-ndpi",
   "version": "1.0.0",
+  "author": "Lorenzo Mangani <lorenzo.mangani@gmail.com>",
   "description": "nDPI Native Bindings",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/lmangani/node-ndpi"
+  },
+  "keywords": [
+    "dpi",
+    "ndpi",
+    "native",
+    "binding",
+    "deep-packet-inspection",
+    "packet inspection"
+  ],
+  "main": "index.js",
   "dependencies": {
     "napi-macros": "^1.1.0",
     "node-gyp-build": "^3.2.2"
