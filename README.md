@@ -1,2 +1,6 @@
 # node-ndpi
-nDPI Bindings for Node JS
+
+NodeJS Native Binding for nDPI Deep Packet Inspection
+
+
+

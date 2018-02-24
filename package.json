@@ -1,31 +1,11 @@
 {
-  "main": "lib/binding.js",
-  "dependencies": {
-    "node-addon-api": "^1.1.0"
-  },
-  "scripts": {
-    "test": "node --napi-modules ./src/example.js"
-  },
-  "gypfile": true,
   "name": "node-ndpi",
   "version": "1.0.0",
-  "description": "nDPI Bindings for Node",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lmangani/node-ndpi.git"
+  "description": "nDPI Native Bindings",
+  "dependencies": {
+    "node-gyp-build": "^3.2.2"
   },
-  "keywords": [
-    "ndpi",
-    "dpi",
-    "packet",
-    "inspection",
-    "library",
-    "deep-packet-inspection"
-  ],
-  "author": "Lorenzo Mangani <lorenzo.mangani@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lmangani/node-ndpi/issues"
-  },
-  "homepage": "https://github.com/lmangani/node-ndpi#readme"
+  "scripts": {
+    "install": "node-gyp-build"
+  }
 }
