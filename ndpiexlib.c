@@ -48,13 +48,13 @@
 #define	MAX_OSDPI_FLOWS          100000
 #define TICK_RESOLUTION          1000
 
-typedef void (*callback)(int, const u_int8_t *packet);
+typedef void (*callback)(int, const char *packet);
 typedef void (*databack)(int, int, int, int, int, char );
 
 // prototypes used function
 void init();
 void setDatalinkType(pcap_t *handle);
-void processPacket(const struct pcap_pkthdr *header, const u_char *packet);
+void processPacket(const struct pcap_pkthdr *header, const char *packet);
 void finish();
 void addProtocolHandler(callback handler);
 
@@ -556,7 +556,7 @@ static void dumpResults(void)
 /**
    Callback function for each packet in the pcap file 
 */
-static void pcap_packet_callback(u_char * args, const struct pcap_pkthdr *header, const u_char * packet)
+static void pcap_packet_callback(u_char * args, const struct pcap_pkthdr *header, const char * packet)
 {
 
   u_int64_t time;
@@ -625,7 +625,7 @@ void setDatalinkType(pcap_t *handle) {
 
 }
 
-void processPacket(const struct pcap_pkthdr *header, const u_char *packet) {
+void processPacket(const struct pcap_pkthdr *header, const char *packet) {
   pcap_packet_callback(NULL, header, packet);
 }
 
