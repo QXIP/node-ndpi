@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/1423657/36631803-5648a558-197e-11e8-9821-2aa60a820a9e.png)
+![image](https://user-images.githubusercontent.com/1423657/36633764-503e637e-199b-11e8-8784-117a04167ce6.png)
 
 # node-ndpi
 
