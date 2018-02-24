@@ -34,6 +34,10 @@
 
 #include "ndpi_api.h"
 
+#include <node_api.h>
+#include <napi-macros.h>
+
+
 /**
    NOTE: in case we want to use nDPI data struct,
    link ./nDPI/example/ndpi_util.h in Makefile
@@ -630,3 +634,49 @@ void finish() {
   tot_usec = end.tv_sec*1000000 + end.tv_usec - (begin.tv_sec*1000000 + begin.tv_usec);
   terminateDetection();
 }
+
+
+NAPI_METHOD(init) {
+  init();
+}
+
+NAPI_METHOD(finish) {
+  finish();
+}
+
+NAPI_METHOD(addProtocolHandler) {
+  NAPI_ARGV(1);
+  NAPI_ARGV_BUFFER_CAST(callback, handler, 0)
+  addProtocolHandler(handle);
+}
+
+
+NAPI_METHOD(processPacket) {
+  NAPI_ARGV(2);
+  NAPI_ARGV_BUFFER_CAST(pcap_pkthdr *, header, 0)
+  NAPI_ARGV_BUFFER_CAST(const u_char *, packet, 1)
+  processPacket(header,packet);
+}
+
+NAPI_METHOD(setDatalinkType) {
+  NAPI_ARGV(1);
+  NAPI_ARGV_BUFFER_CAST(pcap_t *, handle, 0)
+  setDatalinkType(handle);
+}
+
+NAPI_METHOD(times_two) {
+  NAPI_ARGV(1);
+  NAPI_ARGV_INT32(number, 0);
+  number *= 2;
+  NAPI_RETURN_INT32(number)
+}
+
+NAPI_INIT() {
+  NAPI_EXPORT_FUNCTION(times_two);
+  NAPI_EXPORT_FUNCTION(init);
+  NAPI_EXPORT_FUNCTION(finish);
+  NAPI_EXPORT_FUNCTION(processPacket);
+  NAPI_EXPORT_FUNCTION(setDatalinkType);
+  NAPI_EXPORT_FUNCTION(addProtocolHandler);
+}
+
