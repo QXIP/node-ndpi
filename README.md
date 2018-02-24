@@ -12,7 +12,7 @@ ndpi.init();
 ```
 ###### Set Callback
 ```javascript
-var myCallback = function(id,p){ console.log(id); };
+var myCallback = function(id,p){ console.log(id) };
 ndpi.addProtocolHandler(myCallback); 
 ```
 ###### Push Packets
