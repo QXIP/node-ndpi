@@ -635,30 +635,32 @@ void finish() {
   terminateDetection();
 }
 
+/*
+ * napi-macro exports
+ */
 
-NAPI_METHOD(init) {
+NAPI_METHOD(ndpi_init) {
   init();
 }
 
-NAPI_METHOD(finish) {
+NAPI_METHOD(ndpi_finish) {
   finish();
 }
 
-NAPI_METHOD(addProtocolHandler) {
+NAPI_METHOD(ndpi_addProtocolHandler) {
   NAPI_ARGV(1);
   NAPI_ARGV_BUFFER_CAST(callback, handler, 0)
-  addProtocolHandler(handle);
+  addProtocolHandler(handler);
 }
 
-
-NAPI_METHOD(processPacket) {
+NAPI_METHOD(ndpi_processPacket) {
   NAPI_ARGV(2);
-  NAPI_ARGV_BUFFER_CAST(pcap_pkthdr *, header, 0)
-  NAPI_ARGV_BUFFER_CAST(const u_char *, packet, 1)
+  NAPI_ARGV_BUFFER_CAST(struct pcap_pkthdr *, header, 0)
+  NAPI_ARGV_BUFFER(packet, 1)
   processPacket(header,packet);
 }
 
-NAPI_METHOD(setDatalinkType) {
+NAPI_METHOD(ndpi_setDatalinkType) {
   NAPI_ARGV(1);
   NAPI_ARGV_BUFFER_CAST(pcap_t *, handle, 0)
   setDatalinkType(handle);
@@ -673,10 +675,10 @@ NAPI_METHOD(times_two) {
 
 NAPI_INIT() {
   NAPI_EXPORT_FUNCTION(times_two);
-  NAPI_EXPORT_FUNCTION(init);
-  NAPI_EXPORT_FUNCTION(finish);
-  NAPI_EXPORT_FUNCTION(processPacket);
-  NAPI_EXPORT_FUNCTION(setDatalinkType);
-  NAPI_EXPORT_FUNCTION(addProtocolHandler);
+  NAPI_EXPORT_FUNCTION(ndpi_init);
+  NAPI_EXPORT_FUNCTION(ndpi_finish);
+  NAPI_EXPORT_FUNCTION(ndpi_processPacket);
+  NAPI_EXPORT_FUNCTION(ndpi_setDatalinkType);
+  NAPI_EXPORT_FUNCTION(ndpi_addProtocolHandler);
 }
 
