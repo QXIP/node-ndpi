@@ -1,9 +1,11 @@
-![image](https://user-images.githubusercontent.com/1423657/36633764-503e637e-199b-11e8-8784-117a04167ce6.png)
+# ![image](https://user-images.githubusercontent.com/1423657/36633764-503e637e-199b-11e8-8784-117a04167ce6.png)
 
-# node-ndpi
+NodeJS Native Binding for the [nDPI](https://github.com/ntop/ndpi) Deep Packet Inspection Library
 
-NodeJS Native Binding for [nDPI](https://github.com/ntop/ndpi) Deep Packet Inspection Library
+#### Status
+* In Development
+* Contributors Welcome
 
-##### (c) 2018 QXIP BV
+###### (C) 2018 QXIP BV, LICENSED UNDER GPLv3
 
 
