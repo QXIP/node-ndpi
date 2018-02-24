@@ -18,6 +18,7 @@
   "main": "index.js",
   "dependencies": {
     "napi-macros": "^1.1.0",
+    "node-addon-api": "^1.2.0",
     "node-gyp-build": "^3.2.2"
   },
   "scripts": {
