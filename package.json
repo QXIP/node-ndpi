@@ -22,6 +22,7 @@
     "node-gyp-build": "^3.2.2"
   },
   "scripts": {
-    "install": "node-gyp-build"
+    "install": "node-gyp-build",
+    "test": "nodejs ./test/test.js"
   }
 }
