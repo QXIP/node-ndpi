@@ -64,13 +64,11 @@ struct timeval begin, end;
 u_int64_t tot_usec;
 
 // pcap
-static char _pcap_error_buffer[PCAP_ERRBUF_SIZE];
 static pcap_t *_pcap_handle = NULL;
 static int _pcap_datalink_type;
 
 // detection
 static struct ndpi_detection_module_struct *ndpi_info_mod = NULL;
-static u_int32_t detection_tick_resolution = 1000;
 
 #ifdef NDPI_ENABLE_DEBUG_MESSAGES
 
@@ -177,29 +175,6 @@ static int string_to_detection_bitmask(char *str, NDPI_PROTOCOL_BITMASK * dbm)
   return 0;
 }
 #endif
-
-static void debug_printf(u_int32_t protocol, void *id_struct, ndpi_log_level_t log_level, const char *format, ...)
-{
-#ifdef NDPI_ENABLE_DEBUG_MESSAGES
-  if (NDPI_COMPARE_PROTOCOL_TO_BITMASK(debug_messages_bitmask, protocol) != 0) {
-    const char *protocol_string;
-    const char *file;
-    const char *func;
-    u_int32_t line;
-    va_list ap;
-    va_start(ap, format);
-        
-    protocol_string = prot_short_str[protocol.app_protocol];
-        
-    ndpi_debug_get_last_log_function_line(ndpi_info_mod, &file, &func, &line);
-        
-    printf("\nDEBUG: %s:%s:%u Prot: %s, level: %u packet: %"PRIu64" :", file, func, line, protocol_string,
-	   log_level, raw_packet_count);
-    vprintf(format, ap);
-    va_end(ap);
-  }
-#endif
-}
 
 /**
    function to return the ID of protocol
