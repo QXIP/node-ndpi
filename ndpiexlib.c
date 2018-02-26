@@ -52,7 +52,7 @@ typedef void (*callback)(int, const char *packet);
 typedef void (*databack)(int, int, int, int, int, char );
 
 // prototypes used function
-void init();
+int init();
 void setDatalinkType(pcap_t *handle);
 void processPacket(const struct pcap_pkthdr *header, const char *packet);
 void finish();
@@ -326,7 +326,7 @@ static struct osdpi_flow *get_osdpi_flow(const struct iphdr *iph, u_int16_t ipsi
 /**
    Initialize all structures necessary for detection
 */
-static void setupDetection(void)
+static int setupDetection(void)
 {
   u_int32_t i;
   NDPI_PROTOCOL_BITMASK all;
@@ -335,7 +335,7 @@ static void setupDetection(void)
   ndpi_info_mod = ndpi_init_detection_module();
   if(ndpi_info_mod == NULL) {
     printf("ERROR: global structure initialization failed\n");
-    exit(-1);
+    return -1;
   }
   
   // enable all protocols
@@ -350,14 +350,14 @@ static void setupDetection(void)
   osdpi_ids = calloc(MAX_OSDPI_IDS, sizeof(struct osdpi_id));
   if(osdpi_ids == NULL) {
     printf("ERROR: malloc for osdpi_ids failed\n");
-    exit(-1);
+    return -1;
   }
   for(i = 0; i < MAX_OSDPI_IDS; i++) {
     /* memset(&osdpi_ids[i], 0, sizeof(struct osdpi_id)); */
     osdpi_ids[i].ndpi_id = calloc(1, size_id_struct);
     if(osdpi_ids[i].ndpi_id == NULL) {
       printf("ERROR: malloc for ndpi_id struct inside osdpi_ids failed\n");
-      exit(-1);
+      return -1;
     }
   }
 
@@ -365,20 +365,22 @@ static void setupDetection(void)
   osdpi_flows = calloc(MAX_OSDPI_FLOWS, sizeof(struct osdpi_flow));
   if(osdpi_flows == NULL) {
     printf("ERROR: malloc for osdpi_flows failed\n");
-    exit(-1);
+    return -1;
   }
   for (i = 0; i < MAX_OSDPI_FLOWS; i++) {
     /* memset(&osdpi_flows[i], 0, sizeof(struct osdpi_flow)); */
     osdpi_flows[i].ndpi_flow = calloc(1, size_flow_struct);
     if(osdpi_flows[i].ndpi_flow == NULL) {
       printf("ERROR: malloc for ndpi_flow_struct failed\n");
-      exit(-1);
+      return -1;
     }
   }
 
   // clear memory for results
   memset(protocol_counter, 0, (NDPI_MAX_SUPPORTED_PROTOCOLS + 1) * sizeof(u_int64_t));
   memset(protocol_counter_bytes, 0, (NDPI_MAX_SUPPORTED_PROTOCOLS + 1) * sizeof(u_int64_t));
+
+  return 0;
 }
 
 
@@ -611,9 +613,12 @@ static void pcap_packet_callback(u_char * args, const struct pcap_pkthdr *header
 
 /*************************************************/
 
-void init() {
-  setupDetection();
+int init() {
+  int ret;
+  ret = setupDetection();
   gettimeofday(&begin, NULL);
+  
+  return ret;
 }
 
 void getResults() {
@@ -640,17 +645,20 @@ void finish() {
  */
 
 NAPI_METHOD(ndpi_init) {
-  init();
+  int r = init();
+  NAPI_RETURN_INT32(r)
 }
 
 NAPI_METHOD(ndpi_finish) {
   finish();
+  return NULL;
 }
 
 NAPI_METHOD(ndpi_addProtocolHandler) {
   NAPI_ARGV(1);
   NAPI_ARGV_BUFFER_CAST(callback, handler, 0)
   addProtocolHandler(handler);
+  return NULL;
 }
 
 NAPI_METHOD(ndpi_processPacket) {
@@ -658,23 +666,17 @@ NAPI_METHOD(ndpi_processPacket) {
   NAPI_ARGV_BUFFER_CAST(struct pcap_pkthdr *, header, 0)
   NAPI_ARGV_BUFFER(packet, 1)
   processPacket(header,packet);
+  return NULL;
 }
 
 NAPI_METHOD(ndpi_setDatalinkType) {
   NAPI_ARGV(1);
   NAPI_ARGV_BUFFER_CAST(pcap_t *, handle, 0)
   setDatalinkType(handle);
-}
-
-NAPI_METHOD(times_two) {
-  NAPI_ARGV(1);
-  NAPI_ARGV_INT32(number, 0);
-  number *= 2;
-  NAPI_RETURN_INT32(number)
+  return NULL;
 }
 
 NAPI_INIT() {
-  NAPI_EXPORT_FUNCTION(times_two);
   NAPI_EXPORT_FUNCTION(ndpi_init);
   NAPI_EXPORT_FUNCTION(ndpi_finish);
   NAPI_EXPORT_FUNCTION(ndpi_processPacket);
