@@ -640,6 +640,22 @@ NAPI_METHOD(ndpi_processPacket) {
   NAPI_ARGV(2);
   NAPI_ARGV_BUFFER_CAST(struct pcap_pkthdr *, header, 0)
   NAPI_ARGV_BUFFER(packet, 1)
+  // header is cast to struct pcap_pkthdr*; ensure the Buffer is large enough
+  // before dereferencing it. Bound the dissection by the real packet Buffer
+  // length so the attacker-controlled header->caplen / header->len cannot make
+  // the parser read past the end of packet.
+  if (header_len < sizeof(struct pcap_pkthdr)) {
+    napi_throw_error(env, "ERANGE", "header buffer smaller than struct pcap_pkthdr");
+    return NULL;
+  }
+  if (packet_len < sizeof(struct ethhdr)) {
+    napi_throw_error(env, "ERANGE", "packet buffer smaller than struct ethhdr");
+    return NULL;
+  }
+  if (header->caplen > packet_len || header->len > packet_len) {
+    napi_throw_error(env, "ERANGE", "header caplen/len exceeds packet buffer length");
+    return NULL;
+  }
   processPacket(header,packet);
   return NULL;
 }
